@@ -1,16 +1,98 @@
-margin {
-  margin: 0px;
-  border: red solid 1px;
+/*importing my colors*/
+:root {
+  --Gainsboro: #cfdbd5;
+  --Alabaster: #e8eddf;
+  --MaizeCrayola: #f5cb5c;
+  --EerieBlack: #242423;
+  --Jet: #333533;
 }
 
-header {
-  border: red solid 1px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.start-quiz {
-  border: red solid 1px;
+body {
+  background-color: var(--MaizeCrayola);
+  font-family: "Courier New", Courier, monospace;
+  color: var(--Jet);
 }
 
-.timer-section {
-  border: red solid 1px;
+header,
+.flex-container,
+.flex-items {
+  font-size: 75px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-decoration: none;
+  color: var(--Jet);
+}
+
+header:hover,
+a:hover {
+  color: var(--Alabaster);
+  transition: 1s ease;
+}
+
+/*
+.flex-container .flex-items {
+  align-items: center;
+}*/
+
+.start-quiz h1 {
+  font-size: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: solid 1px var(--Jet);
+  text-align: center;
+  padding: 30px;
+}
+
+h1:hover {
+  color: var(--Alabaster);
+  transition: 1s ease;
+}
+
+.timer-section p {
+  font-size: 50px;
+  border: solid 1px var(--Jet);
+  text-align: center;
+}
+
+.question-section,
+h2 li {
+  border: solid 1px var(--Jet);
+  text-align: center;
+  padding: 10px;
+}
+
+.status-section p {
+  border: solid 1px var(--Jet);
+  text-align: center;
+  font-size: 30px;
+}
+
+.form-section {
+  border: solid 2px var(--Jet);
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+form {
+  padding: 20px;
+}
+
+.end-section {
+  border: solid 1px var(--Jet);
+}
+
+@media and screen () {
 }
