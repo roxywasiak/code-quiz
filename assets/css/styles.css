@@ -16,18 +16,26 @@
 body {
   background-color: var(--MaizeCrayola);
   font-family: "Courier New", Courier, monospace;
-  color: var(--Jet);
+  height: 100%;
 }
 
-header,
-.flex-container,
-.flex-items {
-  font-size: 75px;
+.position header a {
+  display: block;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  flex-wrap: wrap;
+  font-size: 50px;
+}
+
+.flex-container,
+.flex-items {
   text-decoration: none;
   color: var(--Jet);
 }
@@ -36,66 +44,81 @@ header:hover,
 a:hover {
   color: var(--Alabaster);
   transition: 1s ease;
+  transform: scale(1.5);
 }
-
-/*
-.flex-container .flex-items {
-  align-items: center;
-}*/
 
 .start-quiz h1 {
   font-size: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: solid 1px var(--Jet);
   text-align: center;
   padding: 30px;
 }
 
 .button {
   display: grid;
-  /* flex-direction: row;
-  justify-items: center;
-  align-items: center;
-  width: 100%; */
 }
+
 button {
   margin: auto;
   height: 40px;
+  border: none;
+  background-color: var(--Jet);
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+    0px;
+  color: hsl(0, 0%, 100%);
+  display: inline-block;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 16px 16px 16px 20px;
+  padding: 14px 34px;
+  text-align: center;
+  cursor: pointer;
+  display: grid;
+}
+
+.list-items {
+  margin: auto;
+  height: 40px;
+  border: none;
+  background-color: var(--Jet);
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+    0px;
+  color: hsl(0, 0%, 100%);
+  display: block;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 16px 16px 16px 20px;
+  padding: 14px 34px;
+  text-align: center;
+  cursor: pointer;
 }
 
 h1:hover {
   color: var(--Alabaster);
   transition: 1s ease;
+  transform: scale(1.5);
 }
 
 .timer-section p {
   font-size: 50px;
-  border: solid 1px var(--Jet);
   text-align: center;
 }
 
 .question-section,
 h2 li {
-  border: solid 1px var(--Jet);
   text-align: center;
   padding: 10px;
 }
 
 .status-section p {
-  border: solid 1px var(--Jet);
   text-align: center;
   font-size: 30px;
 }
 
 .form-section {
-  border: solid 2px var(--Jet);
   margin: 10px;
-  display: flex;
-  flex-direction: row;
   justify-content: center;
-  border-radius: 5px;
 }
 
 input {
@@ -103,20 +126,12 @@ input {
   padding: 10px;
   margin: 5px;
 }
-.form-items {
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
 
-form {
+.form {
   padding: 20px;
 }
 
 .end-section {
-  border: solid 1px var(--Jet);
 }
 
 @media only screen and (max-width: 576px) {
