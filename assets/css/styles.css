@@ -19,9 +19,9 @@ body {
   height: 100%;
 }
 
-.position header a {
+.position {
   display: block;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -32,6 +32,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   font-size: 50px;
+  padding: 10px;
 }
 
 .flex-container,
@@ -131,8 +132,12 @@ input {
   padding: 20px;
 }
 
-.end-section {
+.form-items input {
 }
+
+/*
+.end-section {
+}*/
 
 @media only screen and (max-width: 576px) {
   .header,

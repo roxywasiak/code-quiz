@@ -1,3 +1,19 @@
+const startQuiz = document.querySelector(".start-quiz");
+const startButton = document.getElementById("start-button");
+const questionSection = document.getElementById("question-section");
+const questionHeader = document.querySelector(".question-header");
+const answerList = document.getElementById("list");
+const timer = document.querySelector(".timer");
+
+questionSection.style.display = "none";
+let timeLeft;
+
+startButton.addEventListener("click", function () {
+  startQuiz.style.display = "none";
+  questionSection.style.display = "block";
+  timeLeft = setInterval(startTimer, 1000);
+});
+
 //gloabal declarations
 const questions = [
   {
@@ -10,6 +26,24 @@ const questions = [
     choices: ["JavaScript", "JavaSpeed"],
     answer: "JavaScript",
   },
+  {
+    question: "What does JS stand for?",
+    choices: ["JavaScript", "JavaSpeed"],
+    answer: "JavaScript",
+  },
+
+  {
+    question: "What does JS stand for?",
+    choices: ["JavaScript", "JavaSpeed"],
+    answer: "JavaScript",
+  },
+
+  {
+    question: "What does JS stand for?",
+    choices: ["JavaScript", "JavaSpeed"],
+    answer: "JavaScript",
+  },
+
   {
     question: "What does JS stand for?",
     choices: ["JavaScript", "JavaSpeed"],
@@ -28,6 +62,9 @@ const onLoad = () => {};
 const removeStartSection = () => {};
 
 const startTimer = () => {
+  timerValue--;
+  timer.textContent = " " + timerValue + " seconds ";
+
   //another function to execute every second
   const countdown = () => {
     //decrease the time
