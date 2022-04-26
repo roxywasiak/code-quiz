@@ -20,8 +20,6 @@ body {
 }
 
 .position {
-  display: block;
-  /* flex-direction: row; */
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -126,13 +124,26 @@ input {
   display: flex;
   padding: 10px;
   margin: 5px;
+  padding: 1rem 2rem;
+  width: 90%;
+  border: none;
+  border-radius: 0.4rem;
 }
 
 .form {
   padding: 20px;
 }
 
-.form-items input {
+.form-items {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer {
+  bottom: 0%;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 /*

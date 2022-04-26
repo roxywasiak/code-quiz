@@ -14,6 +14,9 @@ startButton.addEventListener("click", function () {
   timeLeft = setInterval(startTimer, 1000);
 });
 
+//the answers
+const answers = [];
+
 //gloabal declarations
 const questions = [
   {
