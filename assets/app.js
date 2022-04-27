@@ -1,4 +1,4 @@
-const startQuiz = document.querySelector(".start-quiz");
+const startQuiz = document.getElementById("start-quiz");
 const startButton = document.getElementById("start-button");
 const questionSection = document.getElementById("question-section");
 const questionHeader = document.querySelector(".question-header");
@@ -9,7 +9,7 @@ questionSection.style.display = "none";
 let timeLeft;
 
 startButton.addEventListener("click", function () {
-  startQuiz.style.display = "none";
+  startQuiz.remove();
   questionSection.style.display = "block";
   timeLeft = setInterval(startTimer, 1000);
 });

@@ -31,19 +31,13 @@ body {
   flex-wrap: wrap;
   font-size: 50px;
   padding: 10px;
+  color: var(--Alabaster);
 }
 
 .flex-container,
 .flex-items {
   text-decoration: none;
   color: var(--Jet);
-}
-
-header:hover,
-a:hover {
-  color: var(--Alabaster);
-  transition: 1s ease;
-  transform: scale(1.5);
 }
 
 .start-quiz h1 {
@@ -93,12 +87,6 @@ button {
   cursor: pointer;
 }
 
-h1:hover {
-  color: var(--Alabaster);
-  transition: 1s ease;
-  transform: scale(1.5);
-}
-
 .timer-section p {
   font-size: 50px;
   text-align: center;
@@ -140,10 +128,14 @@ input {
 }
 
 .footer {
-  bottom: 0%;
-  font-size: 20px;
+  background-color: var(--jet);
+  font-size: 1.4rem;
+  padding: 2rem 0;
   text-align: center;
-  width: 100%;
+  color: var(--Maizecrayola);
+  letter-spacing: 0.4rem;
+  position: absolute;
+  bottom: 0;
 }
 
 /*

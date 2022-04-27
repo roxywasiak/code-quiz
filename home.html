@@ -17,8 +17,9 @@
         >
       </nav>
     </header>
-    <!-- #start-quiz-section -->
+
     <main>
+      <!-- #start-quiz-section -->
       <section class="start-quiz position" id="start-quiz">
         <h1 class="title">Take The Quiz</h1>
         <!-- <div></div>  -->
@@ -27,48 +28,39 @@
           <button id="start-button">Start Quiz</button>
         </div>
       </section>
+
+      <section class="timer-section position" id="timer-section">
+        <div>
+          <p>Countdown<span class="timer"> 60 Seconds </span></p>
+        </div>
+      </section>
+
+      <!-- My cqustions section -->
       <section class="question-section position" id="question-section">
-        <section class="timer-section position" id="timer-section">
-          <div>
-            <p>Countdown<span class="timer"> 60 Seconds </span></p>
-          </div>
-        </section>
-        <h2 class="question-header">
-          Answer the questions as fast as you can!
-        </h2>
+        <h2 class="question-header">This is the question</h2>
         <ul class="list position" id="list">
           <li class="list-items" id="list-items">Q1</li>
           <li class="list-items" id="list-items">Q2</li>
           <li class="list-items" id="list-items">Q3</li>
           <li class="list-items" id="list-items">Q4</li>
-          <li class="list-items" id="list-items">Q5</li>
-          <li class="list-items" id="list-items">06</li>
         </ul>
       </section>
 
-      <section class="status-section position" id="status-section">
-        <p>YIPPEE!</p>
-      </section>
+      <!--My form section   -->
 
       <section class="form-section position" id="form-section">
         <form>
           <div class="form-items position">
             <input type="text" name="fullName" placeholder="Enter Full name" />
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter email address"
-            />
+
             <div class="button" id="score-submit">
               <button button type="submit">Submit Score</button>
             </div>
           </div>
         </form>
       </section>
-
-      <section class="end-section position" id="end-section"></section>
     </main>
+
+    <script src="./assets/app.js"></script>
   </body>
-  <footer class="footer">Coded with ♡ by Roxy Wasiak</footer>
-  <script src="./assets/app.js"></script>
 </html>
