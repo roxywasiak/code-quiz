@@ -1,42 +1,48 @@
+//
 const startQuiz = document.getElementById("start-quiz");
 const startButton = document.getElementById("start-button");
 const questionSection = document.getElementById("question-section");
 const questionHeader = document.querySelector(".question-header");
 const answerList = document.getElementById("list");
-const timer = document.querySelector(".timer");
+const timer = document.getElementById("timer");
 
-questionSection.style.display = "none";
-let timeLeft;
+// questionSection.style.display = "none";
+// let timeLeft;
 
-startButton.addEventListener("click", function () {
-  startQuiz.remove();
-  questionSection.style.display = "block";
-  timeLeft = setInterval(startTimer, 1000);
-});
+// startButton.addEventListener("click", function () {
+//   startQuiz.remove();
+//   questionSection.style.display = "block";
+//   timeLeft = setInterval(startTimer, 1000);
+// });
 
+let questionIndex = 0;
+//questions[quesionIndex].question -> this would reference the question in index 0
 //the answers
+const choices = ["A", "B", "C"];
+
+//will make a variable to store answers
 const answers = [];
 
 //gloabal declarations
 const questions = [
   {
     question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed"],
+    choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
     answer: "JavaScript",
   },
   {
-    question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed"],
-    answer: "JavaScript",
+    question: "When type of language is JavaScript?",
+    choices: ["Scripting", "styling", "operational"],
+    answer: "Scripting",
   },
   {
-    question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed"],
-    answer: "JavaScript",
+    question: "Who created JavaScript?",
+    choices: ["Javed", "Daniel", "Brendan"],
+    answer: "Brendan",
   },
 
   {
-    question: "What does JS stand for?",
+    question: "",
     choices: ["JavaScript", "JavaSpeed"],
     answer: "JavaScript",
   },
@@ -54,29 +60,39 @@ const questions = [
   },
 ];
 
-let questionIndex = 0;
-//questions[quesionIndex].question -> this would reference the question in index 0
-let timerValue = 10 * questions.length;
-let quizComplete;
+// let timerValue = 10 * questions.length;
+// let quizComplete;
+const renderQuestions = () => {
+  console.log("render-questions");
+  //create section
+  const section = document.createElementById("question-section");
+  section.setAttribute("class", "question-section");
+  //create h2 element
+  const h2 = document.createElementById("question-header");
+  section.setAttribute("class", "question-header");
+  //todo this needs to change as it is hardcoded for now
+  h2.textContent = "Answer the question";
+  //create the ul and add(append) 3 list answers
+  const ul = document.createElementById("list");
+};
 
 //when the page loads to the browser
 const onLoad = () => {};
 
 const removeStartSection = () => {};
 
-const startTimer = () => {
-  timerValue--;
-  timer.textContent = " " + timerValue + " seconds ";
+// const startTimer = () => {
+//   timerValue--;
+//   timer.textContent = " " + timerValue + " seconds ";
 
-  //another function to execute every second
-  const countdown = () => {
-    //decrease the time
-    // if quizComplete is true then stop the timer
-    // check if timer reaches 0
-    //if true then game is over
-  };
-  //set interval of 1000ms (1s)
+//another function to execute every second
+const countdown = () => {
+  //decrease the time
+  // if quizComplete is true then stop the timer
+  // check if timer reaches 0
+  //if true then game is over
 };
+//set interval of 1000ms (1s)
 
 // on click which calls a fiunction called startQuiz
 // inside that function you're going to start the timer then you wiould call another function which presents the first question
