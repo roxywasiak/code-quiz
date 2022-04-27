@@ -4,7 +4,8 @@ const startButton = document.getElementById("start-button");
 const questionSection = document.getElementById("question-section");
 const questionHeader = document.querySelector(".question-header");
 const answerList = document.getElementById("list");
-const timer = document.getElementById("timer");
+// const timer = document.getElementById("timer");
+const timerSpan = document.getElementById("timer-span");
 
 // questionSection.style.display = "none";
 // let timeLeft;
@@ -14,6 +15,37 @@ const timer = document.getElementById("timer");
 //   questionSection.style.display = "block";
 //   timeLeft = setInterval(startTimer, 1000);
 // });
+let timer = 100;
+
+//callback function
+// this is a callback function
+const handleStartButtonClick = () => {
+  console.log("start button clicked");
+
+  const updateTimerValue = () => {
+    // increase the  timer by 1
+    timer -= 1;
+
+    // set text to new timer figures
+    timerSpan.textContent = timer;
+
+    // check if timer is equal to 10
+    if (timer === 0) {
+      clearInterval(timerId);
+    }
+  };
+
+  // start the timer
+  const timerId = setInterval(updateTimerValue, 1000);
+  console.log(timerId);
+};
+
+//adding event listener function as a higer order function
+startButton.addEventListener("click", handleStartButtonClick);
+
+document.getElementById("timer-span").addEventListener("click", () => {
+  timer -= 5;
+});
 
 let questionIndex = 0;
 //questions[quesionIndex].question -> this would reference the question in index 0
