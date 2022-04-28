@@ -115,9 +115,9 @@ const renderQuestions = () => {
   //loop through the questions for each a create a list and append to ul
   for (let i = 0; i < questions.length; i += 1) {
     //create li item
-    const li = document.createElement("li");
+    const li = document.createElement("list-items");
     //sadd a class attribute
-    li.setAttribute("class", "list-item");
+    li.setAttribute("class", "list-items");
     //append child list item  to the parent which is the  ul
     // add content to the list items which is the answers set the text content reference your array and the index
     li.textContent = questions[i];
