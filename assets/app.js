@@ -6,6 +6,7 @@ const questionHeader = document.querySelector(".question-header");
 const answerList = document.getElementById("list");
 // const timer = document.getElementById("timer");
 const timerSpan = document.getElementById("timer-span");
+const main = document.getElementById("main");
 
 // questionSection.style.display = "none";
 // let timeLeft;
@@ -74,21 +75,21 @@ const questions = [
   },
 
   {
-    question: "",
-    choices: ["JavaScript", "JavaSpeed"],
-    answer: "JavaScript",
+    question: "When was JavaScript created?",
+    choices: ["1995", "1982", "1992"],
+    answer: "1995",
   },
 
   {
-    question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed"],
-    answer: "JavaScript",
+    question: "What does null in JavaScript mean?",
+    choices: ["null", "intentional absence of a value", "some value"],
+    answer: "intentional absence of a value",
   },
 
   {
-    question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed"],
-    answer: "JavaScript",
+    question: "What does console log mean?",
+    choices: ["delete a message ", "print a message", "record a message"],
+    answer: "print a message",
   },
 ];
 
@@ -97,16 +98,44 @@ const questions = [
 const renderQuestions = () => {
   console.log("render-questions");
   //create section
-  const section = document.createElementById("question-section");
+  const section = document.createElement("question-section");
   section.setAttribute("class", "question-section");
+
   //create h2 element
-  const h2 = document.createElementById("question-header");
+  const h2 = document.createElement("question-header");
+  //set the h2 attribute
   section.setAttribute("class", "question-header");
-  //todo this needs to change as it is hardcoded for now
+  //set the text content what do you want in the h2
   h2.textContent = "Answer the question";
+
   //create the ul and add(append) 3 list answers
-  const ul = document.createElementById("list");
+  const ul = document.createElement("list");
+  //add a class attribute
+  ul.setAttribute("class", "list");
+  //loop through the questions for each a create a list and append to ul
+  for (let i = 0; i < questions.length; i += 1) {
+    //create li item
+    const li = document.createElement("li");
+    //sadd a class attribute
+    li.setAttribute("class", "list-item");
+    //append child list item  to the parent which is the  ul
+    // add content to the list items which is the answers set the text content reference your array and the index
+    li.textContent = questions[i];
+    // li.textContent = questions.question;
+    // li.textContent = questions.choices;
+    // li.textContent = questions.answer;
+
+    ul.appendChild(li);
+  }
+
+  //append h2 and and the ul to the section
+  section.append(h2, ul);
+  //append the section to the document
+  main.append(section);
 };
+
+//add the click event listener on the start button
+startButton.addEventListener("click", renderQuestions);
 
 //when the page loads to the browser
 const onLoad = () => {};
