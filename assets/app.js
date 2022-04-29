@@ -21,7 +21,8 @@ let timer = 100;
 
 //callback function
 // this is a callback function
-const handleStartButtonClick = () => {
+
+const handleTimerButton = () => {
   console.log("start button clicked");
   const updateTimerValue = () => {
     // increase the  timer by 1
@@ -41,17 +42,31 @@ const handleStartButtonClick = () => {
   console.log(timerId);
 };
 
-//adding event listener function as a higer order function
-startButton.addEventListener("click", handleStartButtonClick);
+//adding event listener function as a higher order function
+startButton.addEventListener("click", handleTimerButton);
 
 document.getElementById("timer-span").addEventListener("click", () => {
   timer -= 5;
 });
 
+//declare the event handler function for start button click
+const handleStartButtonClick = () => {
+  console.log("start button clicked");
+  // initialise local storage
+  initialiseLocalStorage(); //make a function to store this variable
+
+  // remove banner section
+  removeBanner();
+
+  // render question
+  renderQuestion();
+};
+
+// add event listener to start button
+startButton.addEventListener("click", handleStartButtonClick);
+
 let questionIndex = 0;
 //questions[quesionIndex].question -> this would reference the question in index 0
-//the answers
-const choices = ["A", "B", "C"];
 
 //will make a variable to store answers
 const answers = [
@@ -68,45 +83,90 @@ const questions = [
   {
     question: "What does JS stand for?",
     choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
-    answer: "JavaScript",
+    answer: answers[0], //  "JavaScript",
   },
   {
-    question: "When type of language is JavaScript?",
+    question: "What type of language is JavaScript?",
     choices: ["Scripting", "styling", "operational"],
-    answer: "Scripting",
+    answer: answers[1], // "Scripting",
   },
   {
     question: "Who created JavaScript?",
     choices: ["Javed", "Daniel", "Brendan"],
-    answer: "Brendan",
+    answer: answers[2], // "Brendan",
   },
 
   {
     question: "When was JavaScript created?",
     choices: ["1995", "1982", "1992"],
-    answer: "1995",
+    answer: answers[3], // "1995",
   },
 
   {
     question: "What does null in JavaScript mean?",
     choices: ["null", "intentional absence of a value", "some value"],
-    answer: "intentional absence of a value",
+    answer: answers[4], // "intentional absence of a value",
   },
 
   {
     question: "What does console log mean?",
     choices: ["delete a message ", "print a message", "record a message"],
-    answer: "print a message",
+    answer: answers[5], // "print a message",
   },
 ];
 
 //target main element
 const mainElement = document.getElementById("main");
 
-//current question index
+//function to handle the clicks on the answer choices from the object array
+const handleChoiceClicked = () => {
+  console.log("clicked something in the question section");
+  //get current target
+  const currentTarget = event.currentTarget;
+  //get target
+  const target = event.target;
 
+  //make sure click is from the list-items li & if it is an li
+  if (target.tagName === "LI") {
+    //GET THE OPTION THE USER CLICKS ON
+    const value = target.setAttribute("data-value");
+    console.log(value);
+    //get the answer from user
+    const question = questions[questionIndex].text;
+    console.log(question);
+    //build and answer object that contains questions and answer
+    const answer = {
+      question,
+      value,
+    };
+    //store the answers in the ls
+    console.log(answer);
+    if (questionIndex < questions.length - 1) {
+      //go to next question if not the last one
+      questionIndex += 1;
+      renderQuestions();
+    } else {
+      //if its the last question then render the results to go on highscore page
+      //remove the last question as it cant be on the highscore page
+      renderScores();
+      renderForm();
+    }
+  }
+};
+
+//function to render the highscorepage
+const renderScores = () => {};
+
+//funtion to render the submit form
+const renderForm = () => {};
+
+//FUNCTION TO MAKE QUESTIONS APPEAR
 const renderQuestions = () => {
   console.log("render-questions");
+
+  //get the current question
+  const currentQuestion = questions[questionIndex];
+
   //create section
   const section = document.createElement("question-section");
   section.setAttribute("class", "question-section");
@@ -116,30 +176,31 @@ const renderQuestions = () => {
   //set the h2 attribute
   section.setAttribute("class", "question-header");
   //set the text content what do you want in the h2
-  h2.textContent = "Answer the question";
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.text}`;
 
   //create the ul and add(append) 3 list answers
   const ul = document.createElement("list");
   //add a class attribute
   ul.setAttribute("class", "list");
 
-  // loop over options to create and append ui to ul
-
   //create li item
   const li1 = document.createElement("list-items");
   //add a class attribute
   li1.setAttribute("class", "list-items");
+  li1.setAttribute("data-value", currentQuestion.choices[0]);
   //append child list item  to the parent which is the  ul
   // add content to the list items which is the answers set the text content reference your array and the index
-  li1.textContent = "A";
+  li1.textContent = currentQuestion.choices[0];
 
   const li2 = document.createElement("list-items");
   li2.setAttribute("class", "list-items");
-  li2.textContent = "B";
+  li2.setAttribute("data-value", currentQuestion.choices[1]);
+  li2.textContent = currentQuestion.choices[1];
 
   const li3 = document.createElement("list");
   li3.setAttribute("class", "list-items");
-  li3.textContent = "C";
+  li3.setAttribute("data-value", currentQuestion.choices[2]);
+  li3.textContent = currentQuestion.choices[2];
 
   ul.append(li1, li2, li3);
 
@@ -147,12 +208,15 @@ const renderQuestions = () => {
   section.append(h2, ul);
   //append the section to the document
   main.append(section);
+  //add event listener on the questions section
+  section.addEventListener("click", handleStartButtonClick);
 };
-
-startButton.removeEventListener("click", renderQuestions);
 
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
+
+//to stop the button from adding more and more
+startButton.removeEventListener("click", renderQuestions);
 
 //when the page loads to the browser
 // const onLoad = () => {};
