@@ -4,9 +4,10 @@ const startButton = document.getElementById("start-button");
 const questionSection = document.getElementById("question-section");
 const questionHeader = document.querySelector(".question-header");
 const answerList = document.getElementById("list");
-// const timer = document.getElementById("timer");
+// const timer = document.querySelector("timer");
 const timerSpan = document.getElementById("timer-span");
 const main = document.getElementById("main");
+const formSection = document.getElementById("form-section");
 
 // questionSection.style.display = "none";
 // let timeLeft;
@@ -22,7 +23,6 @@ let timer = 100;
 // this is a callback function
 const handleStartButtonClick = () => {
   console.log("start button clicked");
-
   const updateTimerValue = () => {
     // increase the  timer by 1
     timer -= 1;
@@ -54,7 +54,14 @@ let questionIndex = 0;
 const choices = ["A", "B", "C"];
 
 //will make a variable to store answers
-const answers = [];
+const answers = [
+  "JavaScript",
+  "Scripting",
+  "Brendan",
+  "1995",
+  "intentional absence of a value",
+  "print a message",
+];
 
 //gloabal declarations
 const questions = [
@@ -93,8 +100,11 @@ const questions = [
   },
 ];
 
-// let timerValue = 10 * questions.length;
-// let quizComplete;
+//target main element
+const mainElement = document.getElementById("main");
+
+//current question index
+
 const renderQuestions = () => {
   console.log("render-questions");
   //create section
@@ -112,21 +122,26 @@ const renderQuestions = () => {
   const ul = document.createElement("list");
   //add a class attribute
   ul.setAttribute("class", "list");
-  //loop through the questions for each a create a list and append to ul
-  for (let i = 0; i < questions.length; i += 1) {
-    //create li item
-    const li = document.createElement("list-items");
-    //sadd a class attribute
-    li.setAttribute("class", "list-items");
-    //append child list item  to the parent which is the  ul
-    // add content to the list items which is the answers set the text content reference your array and the index
-    li.textContent = questions[i];
-    // li.textContent = questions.question;
-    // li.textContent = questions.choices;
-    // li.textContent = questions.answer;
 
-    ul.appendChild(li);
-  }
+  // loop over options to create and append ui to ul
+
+  //create li item
+  const li1 = document.createElement("list-items");
+  //add a class attribute
+  li1.setAttribute("class", "list-items");
+  //append child list item  to the parent which is the  ul
+  // add content to the list items which is the answers set the text content reference your array and the index
+  li1.textContent = "A";
+
+  const li2 = document.createElement("list-items");
+  li2.setAttribute("class", "list-items");
+  li2.textContent = "B";
+
+  const li3 = document.createElement("list");
+  li3.setAttribute("class", "list-items");
+  li3.textContent = "C";
+
+  ul.append(li1, li2, li3);
 
   //append h2 and and the ul to the section
   section.append(h2, ul);
@@ -134,26 +149,25 @@ const renderQuestions = () => {
   main.append(section);
 };
 
+startButton.removeEventListener("click", renderQuestions);
+
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
 
 //when the page loads to the browser
-const onLoad = () => {};
-
-const removeStartSection = () => {};
+// const onLoad = () => {};
 
 // const startTimer = () => {
 //   timerValue--;
 //   timer.textContent = " " + timerValue + " seconds ";
 
 //another function to execute every second
-const countdown = () => {
-  //decrease the time
-  // if quizComplete is true then stop the timer
-  // check if timer reaches 0
-  //if true then game is over
-};
-//set interval of 1000ms (1s)
+// const countdown = () => {
+//   //decrease the time
+//   // if quizComplete is true then stop the timer
+//   // check if timer reaches 0
+//   //if true then game is over
+// };
 
 // on click which calls a fiunction called startQuiz
 // inside that function you're going to start the timer then you wiould call another function which presents the first question
