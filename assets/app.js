@@ -18,6 +18,7 @@ const formSection = document.getElementById("form-section");
 //   timeLeft = setInterval(startTimer, 1000);
 // });
 let timer = 100;
+let quizComplete = false;
 
 //callback function
 // this is a callback function
@@ -31,7 +32,7 @@ const handleTimerButton = () => {
     // set text to new timer figures
     timerSpan.textContent = timer;
 
-    // check if timer is equal to 10
+    // check if timer is 0
     if (timer === 0) {
       clearInterval(timerId);
     }
@@ -51,12 +52,11 @@ document.getElementById("timer-span").addEventListener("click", () => {
 
 //declare the event handler function for start button click
 const handleStartButtonClick = () => {
+  startQuiz.remove();
+  formSection.remove();
   console.log("start button clicked");
   // initialise local storage
-  initialiseLocalStorage(); //make a function to store this variable
-
-  // remove banner section
-  removeBanner();
+  // initializeLocalStorage(); //make a function to store this variable
 
   // render question
   renderQuestion();
@@ -66,7 +66,7 @@ const handleStartButtonClick = () => {
 startButton.addEventListener("click", handleStartButtonClick);
 
 let questionIndex = 0;
-//questions[quesionIndex].question -> this would reference the question in index 0
+//questionindex this would reference the question in index 0 numbers
 
 //will make a variable to store answers
 const answers = [
@@ -78,7 +78,7 @@ const answers = [
   "print a message",
 ];
 
-//gloabal declarations
+//global declarations
 const questions = [
   {
     question: "What does JS stand for?",
@@ -135,12 +135,13 @@ const handleChoiceClicked = () => {
     const question = questions[questionIndex].text;
     console.log(question);
     //build and answer object that contains questions and answer
-    const answer = {
-      question,
-      value,
-    };
+    // const answer = {
+    //   question,
+    //   value,
+    // };
     //store the answers in the ls
-    console.log(answer);
+    //checking if the button is clicked
+    console.log(answers);
     if (questionIndex < questions.length - 1) {
       //go to next question if not the last one
       questionIndex += 1;
@@ -166,6 +167,9 @@ const renderQuestions = () => {
 
   //get the current question
   const currentQuestion = questions[questionIndex];
+  //the questions
+
+  console.log(" questions ", currentQuestion);
 
   //create section
   const section = document.createElement("question-section");
@@ -176,7 +180,7 @@ const renderQuestions = () => {
   //set the h2 attribute
   section.setAttribute("class", "question-header");
   //set the text content what do you want in the h2
-  h2.textContent = `${questionIndex + 1}. ${currentQuestion.text}`;
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.question}`;
 
   //create the ul and add(append) 3 list answers
   const ul = document.createElement("list");
@@ -215,8 +219,10 @@ const renderQuestions = () => {
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
 
+//render the form here
+
 //to stop the button from adding more and more
-startButton.removeEventListener("click", renderQuestions);
+// startButton.removeEventListener("click", renderQuestions);
 
 //when the page loads to the browser
 // const onLoad = () => {};
