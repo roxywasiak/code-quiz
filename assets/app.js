@@ -54,10 +54,9 @@ document.getElementById("timer-span").addEventListener("click", () => {
 const handleStartButtonClick = () => {
   startQuiz.remove();
   formSection.remove();
-  console.log("start button clicked");
-  // initialise local storage
-  // initializeLocalStorage(); //make a function to store this variable
 
+  // initialise local storage
+  initializeLocalStorage();
   // render question
   renderQuestion();
 };
@@ -119,7 +118,7 @@ const questions = [
 const mainElement = document.getElementById("main");
 
 //function to handle the clicks on the answer choices from the object array
-const handleChoiceClicked = () => {
+const handleChoiceClicked = (event) => {
   console.log("clicked something in the question section");
   //get current target
   const currentTarget = event.currentTarget;
@@ -129,17 +128,21 @@ const handleChoiceClicked = () => {
   //make sure click is from the list-items li & if it is an li
   if (target.tagName === "LI") {
     //GET THE OPTION THE USER CLICKS ON
-    const value = target.setAttribute("data-value");
+    const value = target.getAttribute("data-value");
     console.log(value);
     //get the answer from user
     const question = questions[questionIndex].text;
     console.log(question);
     //build and answer object that contains questions and answer
-    // const answer = {
-    //   question,
-    //   value,
-    // };
+    const answer = {
+      question,
+      value,
+    };
     //store the answers in the ls
+    storeInLS("feedbackResults", answer);
+
+    //take question off
+    removeQuestion();
     //checking if the button is clicked
     console.log(answers);
     if (questionIndex < questions.length - 1) {
@@ -155,11 +158,70 @@ const handleChoiceClicked = () => {
   }
 };
 
+const handleFormSubmission = (event) => {
+  event.preventDefault();
+
+  //full name input grab
+  const fullName = document.getElementById("fullName").value;
+
+  //validation
+  if (fullName) {
+    //store in ls if valid
+    const feedbackResults = JSON.parse(localStorage.getItem("feedbackResults"));
+
+    //object with fullName and results
+    const result = {
+      fullName,
+      feedbackResults,
+    };
+    ///add them back into the ls
+    storeInLS("allResults", result);
+
+    //clear the feedbackResults
+    localStorage.removeItem("feedbackResults");
+
+    //remove the form
+    document.getElementById("form-section").remove();
+  } else {
+    alert("enter your full name please");
+  }
+};
+
+//show the results
+const renderResults = () => {
+  console.log("render results");
+};
+
 //function to render the highscorepage
 const renderScores = () => {};
 
 //funtion to render the submit form
-const renderForm = () => {};
+const renderForm = () => {
+  const section = document.createElement("form-section");
+  section.setAttribute("class", "form-section");
+  section.setAttribute("id", "form-section");
+
+  const form = document.createElement("form");
+
+  const formDiv = document.createElement("form-items");
+  formDiv.setAttribute("class", "form-items");
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("name", "fullName");
+  input.setAttribute("placeholder", "Enter Full Name");
+
+  formDiv.append(input);
+
+  const buttonDiv = document.createElement("div");
+  buttonDiv.setAttribute("class", "button");
+
+  const button = document.createElement("score-submit");
+  button.setAttribute("class", "score-submit");
+  button.textContent = "Submit Score";
+
+  buttonDiv.append(button);
+};
 
 //FUNCTION TO MAKE QUESTIONS APPEAR
 const renderQuestions = () => {
@@ -216,20 +278,40 @@ const renderQuestions = () => {
   section.addEventListener("click", handleStartButtonClick);
 };
 
+//remove the questions from the page
+const removeQuestion = () => {
+  document.getElementById("question-section").remove();
+};
+
+const initializeLocalStorage = () => {
+  //feedback from ls
+  const feedbackResultsFromLs = JSON.parse(
+    localStorage.getItem("feedbackResults")
+  );
+
+  const allResultsFromLs = JSON.parse(localStorage.getItem("allResults"));
+
+  if (!feedbackResultsFromLs) {
+    localStorage.setItem("feedbackResults", JSON.stringify([]));
+  }
+
+  if (!allResultsFromLs) {
+    localStorage.setItem("allResults", JSON.stringify([]));
+  }
+};
+
+const storeInLS = (key, value) => {
+  const arrayLS = JSON.parse(localStorage.getItem(key));
+
+  //add the answer to arrayls
+  arrayLS.push(value);
+
+  localStorage.setItem(key, JSON.stringify(arrayLS));
+};
+
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
-
-//render the form here
-
-//to stop the button from adding more and more
-// startButton.removeEventListener("click", renderQuestions);
-
-//when the page loads to the browser
-// const onLoad = () => {};
-
-// const startTimer = () => {
-//   timerValue--;
-//   timer.textContent = " " + timerValue + " seconds ";
+startButton.addEventListener("click", renderAnswers);
 
 //another function to execute every second
 // const countdown = () => {
