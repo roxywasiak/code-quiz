@@ -13,7 +13,7 @@ I have used HTML, CSS and JavaScript to create my quiz to dynamically render the
 
 # Link to URL
 
-Click the link to view the website [here]()
+Click the link to view the website [here](https://roxywasiak.github.io/code-quiz/)
 
 # Images Of Dynamic Page
 
