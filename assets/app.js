@@ -9,14 +9,6 @@ const timerSpan = document.getElementById("timer-span");
 const main = document.getElementById("main");
 const formSection = document.getElementById("form-section");
 
-// questionSection.style.display = "none";
-// let timeLeft;
-
-// startButton.addEventListener("click", function () {
-//   startQuiz.remove();
-//   questionSection.style.display = "block";
-//   timeLeft = setInterval(startTimer, 1000);
-// });
 let timer = 60;
 let quizComplete = false;
 
