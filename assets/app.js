@@ -17,7 +17,7 @@ const formSection = document.getElementById("form-section");
 //   questionSection.style.display = "block";
 //   timeLeft = setInterval(startTimer, 1000);
 // });
-let timer = 100;
+let timer = 60;
 let quizComplete = false;
 
 //callback function
@@ -77,40 +77,40 @@ const answers = [
   "print a message",
 ];
 
-//global declarations
+//array
 const questions = [
   {
     question: "What does JS stand for?",
     choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
-    answer: answers[0], //  "JavaScript",
+    answer: answers[0],
   },
   {
     question: "What type of language is JavaScript?",
     choices: ["Scripting", "styling", "operational"],
-    answer: answers[1], // "Scripting",
+    answer: answers[1],
   },
   {
     question: "Who created JavaScript?",
     choices: ["Javed", "Daniel", "Brendan"],
-    answer: answers[2], // "Brendan",
+    answer: answers[2],
   },
 
   {
     question: "When was JavaScript created?",
     choices: ["1995", "1982", "1992"],
-    answer: answers[3], // "1995",
+    answer: answers[3],
   },
 
   {
     question: "What does null in JavaScript mean?",
     choices: ["null", "intentional absence of a value", "some value"],
-    answer: answers[4], // "intentional absence of a value",
+    answer: answers[4],
   },
 
   {
     question: "What does console log mean?",
     choices: ["delete a message ", "print a message", "record a message"],
-    answer: answers[5], // "print a message",
+    answer: answers[5],
   },
 ];
 
@@ -192,10 +192,7 @@ const renderResults = () => {
   console.log("render results");
 };
 
-//function to render the highscorepage
-const renderScores = () => {};
-
-//funtion to render the submit form
+//function to render the submit form
 const renderForm = () => {
   const section = document.createElement("form-section");
   section.setAttribute("class", "form-section");
@@ -311,23 +308,4 @@ const storeInLS = (key, value) => {
 
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
-startButton.addEventListener("click", renderAnswers);
-
-//another function to execute every second
-// const countdown = () => {
-//   //decrease the time
-//   // if quizComplete is true then stop the timer
-//   // check if timer reaches 0
-//   //if true then game is over
-// };
-
-// on click which calls a fiunction called startQuiz
-// inside that function you're going to start the timer then you wiould call another function which presents the first question
-// displayQuestion function ->
-// get the first questions values and stuff using questionIdex -> create an element and set the textContent of that element as the question and put it in the html
-// for loop -> loop over the choices. questions[questionIndex].choices -> looping over the choices array and creating buttons for each choice
-// each of these buttons would have a 'value' attribute they will also have an onclick -> when clicked another function to check answer will be triggered
-// validateAnswer function -> if this.value === questions[questionIndex].answer then they answered correctly else incorrectly
-// after checking answer = increment questionindex and if questionIndex isnt larger than questions.length call display question again
-//if it is the same as question.length we would call another function which ends the quiz -> end timer, get the users score, display and let them submit details
-// after submission - render hghscores page.
+startButton.addEventListener("click", handleChoiceClicked);
