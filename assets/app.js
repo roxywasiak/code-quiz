@@ -23,13 +23,12 @@ let timer = 100;
 // this is a callback function
 
 const handleTimerButton = () => {
-  console.log("start button clicked");
   const updateTimerValue = () => {
     // increase the  timer by 1
     timer -= 1;
 
     // set text to new timer figures
-    timerSpan.textContent = timer;
+    timerSpan.textContent = `Count Down ${timer}`;
 
     // check if timer is equal to 10
     if (timer === 0) {
@@ -39,27 +38,30 @@ const handleTimerButton = () => {
 
   // start the timer
   const timerId = setInterval(updateTimerValue, 1000);
-  console.log(timerId);
+  // console.log(timerId);
 };
 
 //adding event listener function as a higher order function
-startButton.addEventListener("click", handleTimerButton);
+// startButton.addEventListener("click", handleTimerButton);
 
-document.getElementById("timer-span").addEventListener("click", () => {
-  timer -= 5;
-});
+// document.getElementById("timer-span").addEventListener("click", () => {
+//   timer -= 5;
+// });
 
 //declare the event handler function for start button click
 const handleStartButtonClick = () => {
   console.log("start button clicked");
   // initialise local storage
-  initialiseLocalStorage(); //make a function to store this variable
+  // initialiseLocalStorage(); //make a function to store this variable
 
+  handleTimerButton();
   // remove banner section
   removeBanner();
-
   // render question
-  renderQuestion();
+  renderQuestions();
+};
+const removeBanner = () => {
+  startQuiz.remove();
 };
 
 // add event listener to start button
@@ -119,20 +121,22 @@ const questions = [
 const mainElement = document.getElementById("main");
 
 //function to handle the clicks on the answer choices from the object array
-const handleChoiceClicked = () => {
+const handleChoiceClicked = (event) => {
   console.log("clicked something in the question section");
   //get current target
   const currentTarget = event.currentTarget;
+  console.log(currentTarget);
   //get target
   const target = event.target;
+  console.log(target.tagName);
 
   //make sure click is from the list-items li & if it is an li
   if (target.tagName === "LI") {
     //GET THE OPTION THE USER CLICKS ON
-    const value = target.setAttribute("data-value");
-    console.log(value);
+    const value = target.getAttribute("data-value");
+    console.log("answer", value);
     //get the answer from user
-    const question = questions[questionIndex].text;
+    const question = questions[questionIndex].question;
     console.log(question);
     //build and answer object that contains questions and answer
     const answer = {
@@ -144,6 +148,7 @@ const handleChoiceClicked = () => {
     if (questionIndex < questions.length - 1) {
       //go to next question if not the last one
       questionIndex += 1;
+      questionSection.innerHTML = "";
       renderQuestions();
     } else {
       //if its the last question then render the results to go on highscore page
@@ -168,23 +173,23 @@ const renderQuestions = () => {
   const currentQuestion = questions[questionIndex];
 
   //create section
-  const section = document.createElement("question-section");
+  const section = document.createElement("section");
   section.setAttribute("class", "question-section");
 
   //create h2 element
-  const h2 = document.createElement("question-header");
+  const h2 = document.createElement("h2");
   //set the h2 attribute
   section.setAttribute("class", "question-header");
   //set the text content what do you want in the h2
-  h2.textContent = `${questionIndex + 1}. ${currentQuestion.text}`;
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.question}`;
 
   //create the ul and add(append) 3 list answers
-  const ul = document.createElement("list");
+  const ul = document.createElement("ul");
   //add a class attribute
   ul.setAttribute("class", "list");
 
   //create li item
-  const li1 = document.createElement("list-items");
+  const li1 = document.createElement("li");
   //add a class attribute
   li1.setAttribute("class", "list-items");
   li1.setAttribute("data-value", currentQuestion.choices[0]);
@@ -192,12 +197,12 @@ const renderQuestions = () => {
   // add content to the list items which is the answers set the text content reference your array and the index
   li1.textContent = currentQuestion.choices[0];
 
-  const li2 = document.createElement("list-items");
+  const li2 = document.createElement("li");
   li2.setAttribute("class", "list-items");
   li2.setAttribute("data-value", currentQuestion.choices[1]);
   li2.textContent = currentQuestion.choices[1];
 
-  const li3 = document.createElement("list");
+  const li3 = document.createElement("li");
   li3.setAttribute("class", "list-items");
   li3.setAttribute("data-value", currentQuestion.choices[2]);
   li3.textContent = currentQuestion.choices[2];
@@ -207,16 +212,17 @@ const renderQuestions = () => {
   //append h2 and and the ul to the section
   section.append(h2, ul);
   //append the section to the document
-  main.append(section);
+  questionSection.append(section);
   //add event listener on the questions section
-  section.addEventListener("click", handleStartButtonClick);
+  section.addEventListener("click", handleChoiceClicked);
 };
 
 //add the click event listener on the start button
-startButton.addEventListener("click", renderQuestions);
+// startButton.addEventListener("click", renderQuestions);
 
+// questionSection.addEventListener("click", handleChoiceClicked);
 //to stop the button from adding more and more
-startButton.removeEventListener("click", renderQuestions);
+// startButton.removeEventListener("click", renderQuestions);
 
 //when the page loads to the browser
 // const onLoad = () => {};

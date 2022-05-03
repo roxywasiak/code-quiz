@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <title>Code-Quiz</title>
-  </head>
-  <body>
-    <header class="header position" id="header">
-      <!-- <nav> flex container -->
-      <nav class="flex-container position" id="flex-container">
-        <a class="flex-items position anchor" href="./home.html">Home</a>
-        <a class="flex-items position anchor" href="./highscore.html"
-          >Highscore</a
-        >
-      </nav>
-    </header>
 
-    <main id="main">
-      <!-- #start-quiz-section -->
-      <section class="start-quiz position" id="start-quiz">
-        <h1 class="title">Take The Quiz</h1>
-        <!-- <div></div>  -->
-        <!-- #start button -->
-        <div class="button">
-          <button id="start-button">Start Quiz</button>
-        </div>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <title>Code-Quiz</title>
+</head>
 
-      <section class="timer-section position" id="timer-section">
-        <div>
-          <p>
-            Countdown<span class="timer" id="timer-span"> 60 Seconds </span>
-          </p>
-        </div>
-      </section>
+<body>
+  <header class="header position" id="header">
+    <!-- <nav> flex container -->
+    <nav class="flex-container position" id="flex-container">
+      <a class="flex-items position anchor" href="./home.html">Home</a>
+      <a class="flex-items position anchor" href="./highscore.html">Highscore</a>
+    </nav>
+  </header>
 
-      <!-- My qustions section -->
-      <!-- <section class="question-section position" id="question-section">
+  <main id="main">
+    <!-- #start-quiz-section -->
+    <section class="start-quiz position" id="start-quiz">
+      <h1 class="title">Take The Quiz</h1>
+
+      <!-- <div></div>  -->
+      <!-- #start button -->
+      <div class="button">
+        <button id="start-button">Start Quiz</button>
+      </div>
+    </section>
+
+    <section class="timer-section position" id="timer-section">
+      <p>
+        <span class="timer" id="timer-span"> </span>
+      </p>
+
+      <div id="question-section"></div>
+    </section>
+
+    <!-- My qustions section -->
+    <!-- <section class="question-section position" id="question-section">
         <h2 class="question-header" id="question-header">
           Answer the question
         </h2>
@@ -49,21 +50,22 @@
         </ul>
       </section> -->
 
-      <!--My form section   -->
+    <!--My form section   -->
 
-      <section class="form-section position" id="form-section">
-        <form>
-          <div class="form-items position">
-            <input type="text" name="fullName" placeholder="Enter Full name" />
+    <section class="form-section position" id="form-section">
+      <form>
+        <div class="form-items position">
+          <input type="text" name="fullName" placeholder="Enter Full name" />
 
-            <div class="button" id="score-submit">
-              <button button type="submit">Submit Score</button>
-            </div>
+          <div class="button" id="score-submit">
+            <button button type="submit">Submit Score</button>
           </div>
-        </form>
-      </section>
-    </main>
+        </div>
+      </form>
+    </section>
+  </main>
 
-    <script src="./assets/app.js"></script>
-  </body>
+  <script src="./assets/app.js"></script>
+</body>
+
 </html>
