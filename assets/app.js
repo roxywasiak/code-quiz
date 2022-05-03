@@ -134,7 +134,7 @@ const handleChoiceClicked = (event) => {
     storeInLS("feedbackResults", answer);
 
     //take question off
-    removeQuestion();
+    removeQuestions();
     //checking if the button is clicked
     console.log(answers);
     if (questionIndex < questions.length - 1) {
@@ -231,7 +231,7 @@ const renderQuestions = () => {
   //set the h2 attribute
   section.setAttribute("class", "question-header");
   //set the text content what do you want in the h2
-  h2.textContent = `${questionIndex + 1}. ${currentQuestion.question}`;
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.questions}`;
 
   //create the ul and add(append) 3 list answers
   const ul = document.createElement("list");
