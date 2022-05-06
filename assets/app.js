@@ -16,13 +16,12 @@ let quizComplete = false;
 // this is a callback function
 
 const handleTimerButton = () => {
-  console.log("start button clicked");
   const updateTimerValue = () => {
     // increase the  timer by 1
     timer -= 1;
 
     // set text to new timer figures
-    timerSpan.textContent = timer;
+    timerSpan.textContent = `Count Down ${timer}`;
 
     // check if timer is 0
     if (timer === 0) {
@@ -32,7 +31,6 @@ const handleTimerButton = () => {
 
   // start the timer
   const timerId = setInterval(updateTimerValue, 1000);
-  console.log(timerId);
 };
 
 //adding event listener function as a higher order function
@@ -44,13 +42,14 @@ document.getElementById("timer-span").addEventListener("click", () => {
 
 //declare the event handler function for start button click
 const handleStartButtonClick = () => {
-  startQuiz.remove();
-  formSection.remove();
+  console.log("start button clicked");
+  handleTimerButton();
+  removeBanner();
+  renderQuestions();
+};
 
-  // initialise local storage
-  initializeLocalStorage();
-  // render question
-  renderQuestion();
+const removeBanner = () => {
+  startQuiz.remove();
 };
 
 // add event listener to start button
@@ -114,41 +113,70 @@ const handleChoiceClicked = (event) => {
   console.log("clicked something in the question section");
   //get current target
   const currentTarget = event.currentTarget;
+  console.log(currentTarget);
   //get target
   const target = event.target;
+  console.log(target.tagName);
 
   //make sure click is from the list-items li & if it is an li
   if (target.tagName === "LI") {
     //GET THE OPTION THE USER CLICKS ON
     const value = target.getAttribute("data-value");
-    console.log(value);
+    console.log("answer", value);
     //get the answer from user
-    const question = questions[questionIndex].text;
+    const question = questions[questionIndex].question;
     console.log(question);
     //build and answer object that contains questions and answer
     const answer = {
       question,
       value,
     };
-    //store the answers in the ls
-    storeInLS("feedbackResults", answer);
 
-    //take question off
-    removeQuestions();
-    //checking if the button is clicked
-    console.log(answers);
+    console.log(answer);
     if (questionIndex < questions.length - 1) {
       //go to next question if not the last one
       questionIndex += 1;
+      questionSection.innerHTML = "";
       renderQuestions();
     } else {
-      //if its the last question then render the results to go on highscore page
-      //remove the last question as it cant be on the highscore page
-      renderScores();
+      if (!questionIndex)
+        //if its the last question then render the results to go on highscore page
+        //remove the last question as it cant be on the highscore page
+        renderScores();
       renderForm();
     }
   }
 };
+
+// const renderScores = () => {
+//   const scoresSection = document.createElement("scores");
+//   scoresSection.setAttribute("class", "scores");
+//   scoresSection.setAttribute("id", "scores");
+
+//   const p1 = document.createElement("answers");
+//   p1.setAttribute("class", "answers");
+//   p1.textContent = answers[0];
+
+//   const p2 = document.createElement("answers");
+//   p2.setAttribute("class", "answers");
+//   p2.textContent = answers[1];
+
+//   const p3 = document.createElement("answers");
+//   p3.setAttribute("class", "answers");
+//   p3.textContent = answers[2];
+
+//   const p4 = document.createElement("answers");
+//   p4.setAttribute("class", "answers");
+//   p4.textContent = answers[3];
+
+//   const p = document.createElement("answers");
+//   p3.setAttribute("class", "answers");
+//   p3.textContent = answers[2];
+
+//   const p4 = document.createElement("answers");
+//   p4.setAttribute("class", "answers");
+//   p4.textContent = answers[3];
+// };
 
 const handleFormSubmission = (event) => {
   event.preventDefault();
@@ -223,23 +251,23 @@ const renderQuestions = () => {
   console.log(" questions ", currentQuestion);
 
   //create section
-  const section = document.createElement("question-section");
+  const section = document.createElement("section");
   section.setAttribute("class", "question-section");
 
   //create h2 element
-  const h2 = document.createElement("question-header");
+  const h2 = document.createElement("h2");
   //set the h2 attribute
   section.setAttribute("class", "question-header");
   //set the text content what do you want in the h2
-  h2.textContent = `${questionIndex + 1}. ${currentQuestion.questions}`;
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.question}`;
 
   //create the ul and add(append) 3 list answers
-  const ul = document.createElement("list");
+  const ul = document.createElement("ul");
   //add a class attribute
   ul.setAttribute("class", "list");
 
   //create li item
-  const li1 = document.createElement("list-items");
+  const li1 = document.createElement("li");
   //add a class attribute
   li1.setAttribute("class", "list-items");
   li1.setAttribute("data-value", currentQuestion.choices[0]);
@@ -247,12 +275,12 @@ const renderQuestions = () => {
   // add content to the list items which is the answers set the text content reference your array and the index
   li1.textContent = currentQuestion.choices[0];
 
-  const li2 = document.createElement("list-items");
+  const li2 = document.createElement("li");
   li2.setAttribute("class", "list-items");
   li2.setAttribute("data-value", currentQuestion.choices[1]);
   li2.textContent = currentQuestion.choices[1];
 
-  const li3 = document.createElement("list");
+  const li3 = document.createElement("li");
   li3.setAttribute("class", "list-items");
   li3.setAttribute("data-value", currentQuestion.choices[2]);
   li3.textContent = currentQuestion.choices[2];
@@ -262,9 +290,10 @@ const renderQuestions = () => {
   //append h2 and and the ul to the section
   section.append(h2, ul);
   //append the section to the document
-  main.append(section);
+  questionSection.append(section);
+  // main.append(section);
   //add event listener on the questions section
-  section.addEventListener("click", handleStartButtonClick);
+  section.addEventListener("click", handleChoiceClicked);
 };
 
 //remove the questions from the page
@@ -300,4 +329,4 @@ const storeInLS = (key, value) => {
 
 //add the click event listener on the start button
 startButton.addEventListener("click", renderQuestions);
-startButton.addEventListener("click", handleChoiceClicked);
+// startButton.addEventListener("click", handleChoiceClicked);

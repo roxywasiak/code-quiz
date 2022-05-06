@@ -17,5 +17,5 @@ Click the link to view the website [here](https://roxywasiak.github.io/code-quiz
 
 # Images Of Dynamic Page
 
-![desktop-version](./assets/screenshots/before.png)
+![desktop-version](./assets/screenshots/imagesecond.png)
 ![desktop-version](./assets/screenshots/after.png)
