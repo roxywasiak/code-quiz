@@ -8,6 +8,9 @@ const answerList = document.getElementById("list");
 const timerSpan = document.getElementById("timer-span");
 const main = document.getElementById("main");
 const formSection = document.getElementById("form-section");
+const scores = document.getElementById("scores");
+const gameOver = document.getElementById("gameOver");
+const betterLuckNextTime.getElementById("betterLuckNextTime");
 
 let timer = 60;
 let quizComplete = false;
@@ -26,7 +29,9 @@ const handleTimerButton = () => {
     // check if timer is 0
     if (timer === 0) {
       clearInterval(timerId);
-    }
+      handleTimerButton();
+      //render game over
+    } else 
   };
 
   // start the timer
@@ -148,35 +153,52 @@ const handleChoiceClicked = (event) => {
   }
 };
 
-// const renderScores = () => {
-//   const scoresSection = document.createElement("scores");
-//   scoresSection.setAttribute("class", "scores");
-//   scoresSection.setAttribute("id", "scores");
+const renderScores = () => {
+  const scoresSection = document.createElement("scores");
+  scoresSection.setAttribute("class", "scores");
+  scoresSection.setAttribute("id", "scores");
 
-//   const p1 = document.createElement("answers");
-//   p1.setAttribute("class", "answers");
-//   p1.textContent = answers[0];
+  const p1 = document.createElement("answers");
+  p1.setAttribute("class", "answers");
+  p1.textContent = answers[0];
 
-//   const p2 = document.createElement("answers");
-//   p2.setAttribute("class", "answers");
-//   p2.textContent = answers[1];
+  const p2 = document.createElement("answers");
+  p2.setAttribute("class", "answers");
+  p2.textContent = answers[1];
 
-//   const p3 = document.createElement("answers");
-//   p3.setAttribute("class", "answers");
-//   p3.textContent = answers[2];
+  const p3 = document.createElement("answers");
+  p3.setAttribute("class", "answers");
+  p3.textContent = answers[2];
 
-//   const p4 = document.createElement("answers");
-//   p4.setAttribute("class", "answers");
-//   p4.textContent = answers[3];
+  const p4 = document.createElement("answers");
+  p4.setAttribute("class", "answers");
+  p4.textContent = answers[3];
 
-//   const p = document.createElement("answers");
-//   p3.setAttribute("class", "answers");
-//   p3.textContent = answers[2];
+  const p5 = document.createElement("answers");
+  p5.setAttribute("class", "answers");
+  p5.textContent = answers[4];
 
-//   const p4 = document.createElement("answers");
-//   p4.setAttribute("class", "answers");
-//   p4.textContent = answers[3];
-// };
+  const p6 = document.createElement("answers");
+  p6.setAttribute("class", "answers");
+  p6.textContent = answers[5];
+};
+const renderGameOverIndex = () => {
+  //make elements in game over
+  const gameOver = document.createElement("gameOver");
+  h1.setAttribute("class", "gameOver");
+  h1.textContent = "Game Over";
+
+  const betterLuckNextTime = document.createElement("betterLuckNextTime");
+  h2.setAttribute("class", "betterLuckNextTime");
+  h2.textContent = "betterLuckNextTime";
+};
+
+const renderGameOver = () => {
+  //
+  if (timer === 0 && questions.length <= 0) {
+    renderGameOverIndex();
+  } else alert("restart the quiz!");
+};
 
 const handleFormSubmission = (event) => {
   event.preventDefault();
