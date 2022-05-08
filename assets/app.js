@@ -10,55 +10,50 @@ const main = document.getElementById("main");
 const formSection = document.getElementById("form-section");
 const scores = document.getElementById("scores");
 const gameOver = document.getElementById("gameOver");
-const betterLuckNextTime.getElementById("betterLuckNextTime");
+const betterLuckNextTime = document.getElementById("betterLuckNextTime");
 
-let timer = 60;
+let timer = 4;
+let timerId;
 let quizComplete = false;
 
 //callback function
 // this is a callback function
 
-const handleTimerButton = () => {
+const startTimer = () => {
   const updateTimerValue = () => {
     // increase the  timer by 1
     timer -= 1;
 
     // set text to new timer figures
-    timerSpan.textContent = `Count Down ${timer}`;
+    timerSpan.textContent = `Count Down ${timer > 0 ? timer : 0}`;
 
     // check if timer is 0
-    if (timer === 0) {
+    if (timer <= 0) {
       clearInterval(timerId);
-      handleTimerButton();
-      //render game over
-    } else 
+
+      removeQuestion();
+
+      renderGameOver();
+    } else {
+    }
   };
 
   // start the timer
-  const timerId = setInterval(updateTimerValue, 1000);
+  timerId = setInterval(updateTimerValue, 1000);
 };
-
-//adding event listener function as a higher order function
-startButton.addEventListener("click", handleTimerButton);
-
-document.getElementById("timer-span").addEventListener("click", () => {
-  timer -= 5;
-});
 
 //declare the event handler function for start button click
 const handleStartButtonClick = () => {
   console.log("start button clicked");
-  handleTimerButton();
   removeBanner();
+  timerSpan.textContent = `Count Down ${timer > 0 ? timer : 0}`;
   renderQuestions();
+  startTimer();
 };
 
 const removeBanner = () => {
   startQuiz.remove();
 };
-
-// add event listener to start button
-startButton.addEventListener("click", handleStartButtonClick);
 
 let questionIndex = 0;
 //questionindex this would reference the question in index 0 numbers
@@ -78,35 +73,35 @@ const questions = [
   {
     question: "What does JS stand for?",
     choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
-    answer: answers[0],
+    answer: "JavaScript",
   },
   {
     question: "What type of language is JavaScript?",
     choices: ["Scripting", "styling", "operational"],
-    answer: answers[1],
+    answer: "Scripting",
   },
   {
     question: "Who created JavaScript?",
     choices: ["Javed", "Daniel", "Brendan"],
-    answer: answers[2],
+    answer: "Brendan",
   },
 
   {
     question: "When was JavaScript created?",
     choices: ["1995", "1982", "1992"],
-    answer: answers[3],
+    answer: "1995",
   },
 
   {
     question: "What does null in JavaScript mean?",
     choices: ["null", "intentional absence of a value", "some value"],
-    answer: answers[4],
+    answer: "intentional absence of a value",
   },
 
   {
     question: "What does console log mean?",
     choices: ["delete a message ", "print a message", "record a message"],
-    answer: answers[5],
+    answer: "print a message",
   },
 ];
 
@@ -126,28 +121,29 @@ const handleChoiceClicked = (event) => {
   //make sure click is from the list-items li & if it is an li
   if (target.tagName === "LI") {
     //GET THE OPTION THE USER CLICKS ON
-    const value = target.getAttribute("data-value");
-    console.log("answer", value);
+    const userAnswer = target.getAttribute("data-value");
+    console.log("answer", userAnswer);
     //get the answer from user
-    const question = questions[questionIndex].question;
-    console.log(question);
-    //build and answer object that contains questions and answer
-    const answer = {
-      question,
-      value,
-    };
+    const correctAnswer = questions[questionIndex].answer;
+    console.log("correct answer", correctAnswer);
 
-    console.log(answer);
+    // check answer
+    if (userAnswer !== correctAnswer) {
+      // deduct 5 seconds from timer
+      timer -= 5;
+    }
+
+    questionSection.innerHTML = "";
+
     if (questionIndex < questions.length - 1) {
       //go to next question if not the last one
       questionIndex += 1;
-      questionSection.innerHTML = "";
       renderQuestions();
     } else {
-      if (!questionIndex)
-        //if its the last question then render the results to go on highscore page
-        //remove the last question as it cant be on the highscore page
-        renderScores();
+      //if its the last question then render the results to go on highscore page
+      //remove the last question as it cant be on the highscore page
+      // renderScores();
+      clearInterval(timerId);
       renderForm();
     }
   }
@@ -182,22 +178,18 @@ const renderScores = () => {
   p6.setAttribute("class", "answers");
   p6.textContent = answers[5];
 };
-const renderGameOverIndex = () => {
+
+const renderGameOver = () => {
   //make elements in game over
-  const gameOver = document.createElement("gameOver");
+  const h1 = document.createElement("h1");
   h1.setAttribute("class", "gameOver");
   h1.textContent = "Game Over";
 
-  const betterLuckNextTime = document.createElement("betterLuckNextTime");
+  const h2 = document.createElement("h2");
   h2.setAttribute("class", "betterLuckNextTime");
   h2.textContent = "betterLuckNextTime";
-};
 
-const renderGameOver = () => {
-  //
-  if (timer === 0 && questions.length <= 0) {
-    renderGameOverIndex();
-  } else alert("restart the quiz!");
+  main.append(h1, h2);
 };
 
 const handleFormSubmission = (event) => {
@@ -237,29 +229,31 @@ const renderResults = () => {
 //function to render the submit form
 const renderForm = () => {
   const section = document.createElement("form-section");
-  section.setAttribute("class", "form-section");
+  section.setAttribute("class", "form-section position");
   section.setAttribute("id", "form-section");
 
   const form = document.createElement("form");
 
   const formDiv = document.createElement("form-items");
-  formDiv.setAttribute("class", "form-items");
+  formDiv.setAttribute("class", "form-items position");
 
   const input = document.createElement("input");
   input.setAttribute("type", "text");
   input.setAttribute("name", "fullName");
   input.setAttribute("placeholder", "Enter Full Name");
 
-  formDiv.append(input);
-
-  const buttonDiv = document.createElement("div");
-  buttonDiv.setAttribute("class", "button");
-
-  const button = document.createElement("score-submit");
-  button.setAttribute("class", "score-submit");
+  const button = document.createElement("button");
+  button.setAttribute("class", "button");
+  button.setAttribute("type", "submit");
   button.textContent = "Submit Score";
 
-  buttonDiv.append(button);
+  formDiv.append(input, button);
+
+  form.append(formDiv);
+
+  section.append(form);
+
+  main.append(section);
 };
 
 //FUNCTION TO MAKE QUESTIONS APPEAR
@@ -320,7 +314,9 @@ const renderQuestions = () => {
 
 //remove the questions from the page
 const removeQuestion = () => {
-  document.getElementById("question-section").remove();
+  if (document.getElementById("question-section")) {
+    document.getElementById("question-section").remove();
+  }
 };
 
 const initializeLocalStorage = () => {
@@ -349,6 +345,5 @@ const storeInLS = (key, value) => {
   localStorage.setItem(key, JSON.stringify(arrayLS));
 };
 
-//add the click event listener on the start button
-startButton.addEventListener("click", renderQuestions);
-// startButton.addEventListener("click", handleChoiceClicked);
+// add event listener to start button
+startButton.addEventListener("click", handleStartButtonClick);
