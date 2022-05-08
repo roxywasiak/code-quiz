@@ -16,6 +16,46 @@ let timer = 60;
 let timerId;
 let quizComplete = false;
 
+let questionIndex = 0;
+//questionindex this would reference the question in index 0 numbers
+
+//array
+const questions = [
+  {
+    question: "What does JS stand for?",
+    choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
+    answer: "JavaScript",
+  },
+  {
+    question: "What type of language is JavaScript?",
+    choices: ["Scripting", "styling", "operational"],
+    answer: "Scripting",
+  },
+  {
+    question: "Who created JavaScript?",
+    choices: ["Javed", "Daniel", "Brendan"],
+    answer: "Brendan",
+  },
+
+  {
+    question: "When was JavaScript created?",
+    choices: ["1995", "1982", "1992"],
+    answer: "1995",
+  },
+
+  {
+    question: "What does null in JavaScript mean?",
+    choices: ["null", "intentional absence of a value", "some value"],
+    answer: "intentional absence of a value",
+  },
+
+  {
+    question: "What does console log mean?",
+    choices: ["delete a message ", "print a message", "record a message"],
+    answer: "print a message",
+  },
+];
+
 const readFromLocalStorage = (key, defaultValue) => {
   // get from LS using key name
   const dataFromLS = localStorage.getItem(key);
@@ -77,59 +117,6 @@ const removeBanner = () => {
   startQuiz.remove();
 };
 
-let questionIndex = 0;
-//questionindex this would reference the question in index 0 numbers
-
-//will make a variable to store answers
-const answers = [
-  "JavaScript",
-  "Scripting",
-  "Brendan",
-  "1995",
-  "intentional absence of a value",
-  "print a message",
-];
-
-//array
-const questions = [
-  {
-    question: "What does JS stand for?",
-    choices: ["JavaScript", "JavaSpeed", "JavaScripting"],
-    answer: "JavaScript",
-  },
-  {
-    question: "What type of language is JavaScript?",
-    choices: ["Scripting", "styling", "operational"],
-    answer: "Scripting",
-  },
-  {
-    question: "Who created JavaScript?",
-    choices: ["Javed", "Daniel", "Brendan"],
-    answer: "Brendan",
-  },
-
-  {
-    question: "When was JavaScript created?",
-    choices: ["1995", "1982", "1992"],
-    answer: "1995",
-  },
-
-  {
-    question: "What does null in JavaScript mean?",
-    choices: ["null", "intentional absence of a value", "some value"],
-    answer: "intentional absence of a value",
-  },
-
-  {
-    question: "What does console log mean?",
-    choices: ["delete a message ", "print a message", "record a message"],
-    answer: "print a message",
-  },
-];
-
-//target main element
-const mainElement = document.getElementById("main");
-
 //function to handle the clicks on the answer choices from the object array
 const handleChoiceClicked = (event) => {
   console.log("clicked something in the question section");
@@ -169,36 +156,6 @@ const handleChoiceClicked = (event) => {
       renderForm();
     }
   }
-};
-
-const renderScores = () => {
-  const scoresSection = document.createElement("scores");
-  scoresSection.setAttribute("class", "scores");
-  scoresSection.setAttribute("id", "scores");
-
-  const p1 = document.createElement("answers");
-  p1.setAttribute("class", "answers");
-  p1.textContent = answers[0];
-
-  const p2 = document.createElement("answers");
-  p2.setAttribute("class", "answers");
-  p2.textContent = answers[1];
-
-  const p3 = document.createElement("answers");
-  p3.setAttribute("class", "answers");
-  p3.textContent = answers[2];
-
-  const p4 = document.createElement("answers");
-  p4.setAttribute("class", "answers");
-  p4.textContent = answers[3];
-
-  const p5 = document.createElement("answers");
-  p5.setAttribute("class", "answers");
-  p5.textContent = answers[4];
-
-  const p6 = document.createElement("answers");
-  p6.setAttribute("class", "answers");
-  p6.textContent = answers[5];
 };
 
 const renderGameOver = () => {
@@ -341,32 +298,6 @@ const removeQuestion = () => {
   if (document.getElementById("question-section")) {
     document.getElementById("question-section").remove();
   }
-};
-
-const initializeLocalStorage = () => {
-  //feedback from ls
-  const feedbackResultsFromLs = JSON.parse(
-    localStorage.getItem("feedbackResults")
-  );
-
-  const allResultsFromLs = JSON.parse(localStorage.getItem("allResults"));
-
-  if (!feedbackResultsFromLs) {
-    localStorage.setItem("feedbackResults", JSON.stringify([]));
-  }
-
-  if (!allResultsFromLs) {
-    localStorage.setItem("allResults", JSON.stringify([]));
-  }
-};
-
-const storeInLS = (key, value) => {
-  const arrayLS = JSON.parse(localStorage.getItem(key));
-
-  //add the answer to arrayls
-  arrayLS.push(value);
-
-  localStorage.setItem(key, JSON.stringify(arrayLS));
 };
 
 // add event listener to start button
