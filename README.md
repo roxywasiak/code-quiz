@@ -1,6 +1,6 @@
 # Title
 
-code-quiz
+# code-quiz
 
 # Description
 
@@ -17,5 +17,6 @@ Click the link to view the website [here](https://roxywasiak.github.io/code-quiz
 
 # Images Of Dynamic Page
 
-![desktop-version](./assets/screenshots/imagesecond.png)
-![desktop-version](./assets/screenshots/after.png)
+![desktop-screenshot](./assets/images/screenshots/quizstart.png)
+![desktop-screenshot](./assets/images/screenshots/questionsrender.png)
+![desktop-screenshot](./assets/images/screenshots/GameOver.png)
