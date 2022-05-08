@@ -12,9 +12,31 @@ const scores = document.getElementById("scores");
 const gameOver = document.getElementById("gameOver");
 const betterLuckNextTime = document.getElementById("betterLuckNextTime");
 
-let timer = 4;
+let timer = 60;
 let timerId;
 let quizComplete = false;
+
+const readFromLocalStorage = (key, defaultValue) => {
+  // get from LS using key name
+  const dataFromLS = localStorage.getItem(key);
+
+  // parse data from LS
+  const parsedData = JSON.parse(dataFromLS);
+
+  if (parsedData) {
+    return parsedData;
+  } else {
+    return defaultValue;
+  }
+};
+
+const writeToLocalStorage = (key, value) => {
+  // convert value to string
+  const stringifiedValue = JSON.stringify(value);
+
+  // set stringified value to LS for key name
+  localStorage.setItem(key, stringifiedValue);
+};
 
 //callback function
 // this is a callback function
@@ -201,18 +223,18 @@ const handleFormSubmission = (event) => {
   //validation
   if (fullName) {
     //store in ls if valid
-    const feedbackResults = JSON.parse(localStorage.getItem("feedbackResults"));
+    const highscores = readFromLocalStorage("highscores", []);
 
     //object with fullName and results
     const result = {
       fullName,
-      feedbackResults,
+      score: timer,
     };
-    ///add them back into the ls
-    storeInLS("allResults", result);
 
-    //clear the feedbackResults
-    localStorage.removeItem("feedbackResults");
+    highscores.push(result);
+
+    ///add them back into the ls
+    writeToLocalStorage("highscores", highscores);
 
     //remove the form
     document.getElementById("form-section").remove();
@@ -239,7 +261,7 @@ const renderForm = () => {
 
   const input = document.createElement("input");
   input.setAttribute("type", "text");
-  input.setAttribute("name", "fullName");
+  input.setAttribute("id", "fullName");
   input.setAttribute("placeholder", "Enter Full Name");
 
   const button = document.createElement("button");
@@ -254,6 +276,8 @@ const renderForm = () => {
   section.append(form);
 
   main.append(section);
+
+  form.addEventListener("submit", handleFormSubmission);
 };
 
 //FUNCTION TO MAKE QUESTIONS APPEAR
